@@ -13,7 +13,7 @@ function App() {
   const API_KEY = process.env.REACT_APP_API_KEY;
   const getMovie = async (searchValue) => {
     try {
-      const url = `http://www.omdbapi.com/?s=${searchValue}&apikey=${API_KEY}`;
+      const url = `https://www.omdbapi.com/?s=${searchValue}&apikey=${API_KEY}`;
       const response = await fetch(url);
       const data = await response.json();
       const moviesOnly = data.Search?.filter((movie) => movie.Type === "movie");
