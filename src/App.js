@@ -5,25 +5,28 @@ import MovieListHeading from "./components/MovieListHeading";
 import SearchBox from "./components/SearchBox";
 import AddToNominates from "./components/AddToNominates";
 import RemoveNominates from "./components/RemoveNominates";
+const API_KEY = process.env.REACT_APP_API_KEY;
 
 function App() {
   const [movies, setMovies] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const [nominates, setNominates] = useState([]);
-  const API_KEY = process.env.REACT_APP_API_KEY;
-  const getMovie = async (searchValue) => {
-    try {
-      const url = `https://www.omdbapi.com/?s=${searchValue}&apikey=${API_KEY}`;
-      const response = await fetch(url);
-      const data = await response.json();
-      const moviesOnly = data.Search?.filter((movie) => movie.Type === "movie");
-      setMovies(moviesOnly);
-    } catch (err) {
-      console.log({ err });
-    }
-  };
 
   useEffect(() => {
+    const getMovie = async (searchValue) => {
+      try {
+        const url = `https://www.omdbapi.com/?s=${searchValue}&apikey=${API_KEY}`;
+        const response = await fetch(url);
+        const data = await response.json();
+        const moviesOnly = data.Search?.filter(
+          (movie) => movie.Type === "movie"
+        );
+        setMovies(moviesOnly);
+      } catch (err) {
+        console.log({ err });
+      }
+    };
+
     getMovie(searchValue);
   }, [searchValue]);
 

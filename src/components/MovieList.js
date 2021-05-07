@@ -10,21 +10,19 @@ const MovieList = ({ movies, nominateAction, clickAction }) => {
       {movies ? (
         movies.map((movie) => {
           return (
-            <>
-              <div key={movie.imdbID} className="movie-container">
-                <PosterContainer>
-                  <Poster src={movie?.Poster} alt="movie" />
-                  <Interaction onClick={() => clickAction(movie)}>
-                    <NominateAction />
-                  </Interaction>
-                </PosterContainer>
-                <div className="description">
-                  <p>
-                    {movie.Title} <span>({movie.Year})</span>
-                  </p>
-                </div>
+            <div key={movie?.imdbID} className="movie-container">
+              <PosterContainer>
+                <Poster src={movie?.Poster} alt="movie" />
+                <Interaction onClick={() => clickAction(movie)}>
+                  <NominateAction />
+                </Interaction>
+              </PosterContainer>
+              <div className="description">
+                <p>
+                  {movie.Title} <span>({movie.Year})</span>
+                </p>
               </div>
-            </>
+            </div>
           );
         })
       ) : (
