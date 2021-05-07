@@ -8,7 +8,7 @@ const SearchBox = ({ searchValue, setSearchValue }) => {
         <Input
           value={searchValue}
           onChange={(event) => setSearchValue(event.target.value)}
-          placeholder="Search a movie here..."
+          placeholder="Search a movie.."
         />
       </InputCont>
     </>
