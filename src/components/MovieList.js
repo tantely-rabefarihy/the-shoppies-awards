@@ -2,19 +2,24 @@ import React from "react";
 import styled from "styled-components";
 import "../App.scss";
 
-const MovieList = ({ movies, nominateAction, clickAction }) => {
+const MovieList = ({ movies, nominateAction, clickAction, isNominated }) => {
   const NominateAction = nominateAction;
+  console.log({ isNominated });
 
   return (
     <>
       {movies ? (
         movies.map((movie) => {
+          // if (isNominated) {
+          //   console.log("CONTAINS? ", isNominated.includes(movie));
+          // }
           return (
             <div key={movie?.imdbID} className="movie-container">
               <PosterContainer>
                 <Poster src={movie?.Poster} alt="movie" />
+
                 <Interaction onClick={() => clickAction(movie)}>
-                  <NominateAction />
+                  <NominateAction isNominated={isNominated} />
                 </Interaction>
               </PosterContainer>
               <div className="description">

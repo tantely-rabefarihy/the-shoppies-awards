@@ -11,6 +11,7 @@ function App() {
   const [movies, setMovies] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const [nominates, setNominates] = useState([]);
+  const [isNominated, setIsNominated] = useState();
 
   useEffect(() => {
     const getMovie = async (searchValue) => {
@@ -21,19 +22,37 @@ function App() {
         const moviesOnly = data.Search?.filter(
           (movie) => movie.Type === "movie"
         );
-        setMovies(moviesOnly);
+        setMovies(() => moviesOnly);
       } catch (err) {
         console.log({ err });
       }
     };
 
     getMovie(searchValue);
+
+    const checkDup = (movies, nominates) => {
+      if (movies !== undefined) {
+        return setIsNominated(() =>
+          movies.filter((movie) => {
+            return nominates.some(
+              (nominate) => nominate.imdbID === movie.imdbID
+            );
+          })
+        );
+      } else {
+        return null;
+      }
+    };
+    checkDup(movies, nominates);
+
+    // console.log("MOVIES SEARCHED ", movies);
+    // console.log("NOMINATED ", nominates);
   }, [searchValue]);
 
   useEffect(() => {
     const myNominates = JSON.parse(localStorage.getItem("movies-nominated"));
     if (myNominates) {
-      setNominates(myNominates);
+      setNominates(() => myNominates);
     }
   }, []);
 
@@ -45,6 +64,7 @@ function App() {
     const sameMovie = nominates.find((nom) => nom.imdbID === movie.imdbID);
     let newNominates;
     if (sameMovie) {
+      // setIsNominated(true);
       window.alert("You have already added this movie 🎥 ");
       newNominates = [...nominates];
     } else if (nominates.length === 5) {
@@ -53,7 +73,7 @@ function App() {
     } else {
       newNominates = [...nominates, movie];
     }
-    setNominates(newNominates);
+    setNominates(() => newNominates);
     saveToLocalStorage(newNominates);
   };
 
@@ -62,6 +82,8 @@ function App() {
     setNominates(newNom);
     saveToLocalStorage(newNom);
   };
+
+  console.log({ isNominated });
 
   return (
     <>
@@ -81,6 +103,7 @@ function App() {
             movies={movies}
             nominateAction={AddToNominates}
             clickAction={handleAddNominates}
+            isNominated={isNominated}
           />
         </div>
         <div className="">
