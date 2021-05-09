@@ -17,7 +17,6 @@ const MovieList = ({ movies, nominateAction, clickAction, isNominated }) => {
             <div key={movie?.imdbID} className="movie-container">
               <PosterContainer>
                 <Poster src={movie?.Poster} alt="movie" />
-
                 <Interaction onClick={() => clickAction(movie)}>
                   <NominateAction isNominated={isNominated} />
                 </Interaction>
