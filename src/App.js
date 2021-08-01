@@ -17,8 +17,8 @@ function App() {
     const getMovie = async (searchValue) => {
       try {
         const url = `https://www.omdbapi.com/?s=${searchValue}&apikey=${API_KEY}`;
-        const response = await fetch(url);
-        const data = await response.json();
+        const res = await fetch(url);
+        const data = await res.json();
         const moviesOnly = data.Search?.filter(
           (movie) => movie.Type === "movie"
         );

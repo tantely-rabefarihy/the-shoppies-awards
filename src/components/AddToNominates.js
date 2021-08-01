@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const AddToNominates = () => {
+const AddToNominates = ({isNominated}) => {
   return (
     <Container>
       <Add>Add to Nominates</Add>
